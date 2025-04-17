@@ -3,16 +3,17 @@ still very WIP
 
 ## dev roadmap
 ### the absolute bare minimum
-- [ ] basic engine functionality
+- [X] basic engine functionality
 - [ ] style consistency
-- [ ] use .h files properly
+- [ ] comments
+- [X] use .h files properly
 
 ### have any actually useful functionality and practices
 - [ ] more complex combat system
 - [ ] console logs
 - [ ] error messages
 - [ ] unit tests
-- [ ] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
+- [X] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
 
 ### have this done before fall 2025 :clueless:
 - [ ] castorice global passive
