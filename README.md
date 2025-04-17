@@ -4,8 +4,8 @@ still very WIP
 ## dev roadmap
 ### the absolute bare minimum
 - [X] basic engine functionality
-- [ ] style consistency
-- [ ] comments
+- [X] style consistency
+- [X] comments
 - [X] use .h files properly
 
 ### have any actually useful functionality and practices
