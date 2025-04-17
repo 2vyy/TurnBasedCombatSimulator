@@ -1,37 +1,21 @@
 #include <string>
 #include <vector>
-#include "character.cpp"
+#include <algorithm>
+#include "character.h"
+#include "team.h"
 
-class Team {
-public:
-	Team(std::string& _name) :
-		name(_name) {
-		characters = {};
-	}
-	//
-	void add_member(Character& character) {
-		characters.push_back(character);
-	}
+Team::Team(const std::string& _name) :
+	name(_name) {}
 
-	void remove_dead() {
-		for (int i = 0; i < characters.size(); i++) {
-			if (!characters[i].is_alive()) {
-				characters.erase(characters.begin() + i);
-			}
-		}
-	}
+void Team::add_member(Character& character) {
+    characters.push_back(character);
+}
 
-	bool is_defeated() {
-		return characters.size() == 0;
-	}
+bool Team::is_defeated() const {
+	return std::none_of(characters.begin(), characters.end(),
+		[](const Character& c) { return c.is_alive(); });
+}
 
-	std::vector<Character&> get_characters() {
-		return characters;
-	}
-
-
-private:
-	std::string& name;
-	std::vector<Character&> characters;
-
-};
+std::vector<Character>& Team::get_characters() {
+	return characters;
+}

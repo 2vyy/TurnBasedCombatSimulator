@@ -1,33 +1,34 @@
-#include <string>
-#include "team.cpp";
+#include<string>
+#include <iostream>
+#include "team.h"
+#include "character.h"
 
-class Character {
-public:
-	Character(std::string& _name, int _attack, int _max_health, int _speed) : 
-		name(_name), attack(_attack), max_health(_max_health), curr_health(_max_health), speed(_speed) {}
-	//
-	void take_damage(int damage) {
-		curr_health -= damage;
-	}
+//Character::Character(std::string _name, int _attack, int _max_health, int _speed) : 
+	//name(_name), attack(_attack), max_health(_max_health), curr_health(_max_health), speed(_speed) {};
+	
+void Character::take_damage(int damage) {
+	curr_health -= damage;
+}
 
-	bool is_alive() {
-		return curr_health > 0;
-	}
+bool Character::is_alive() const {
+	return curr_health > 0;
+}
 
-	void process_turn(Character& other) {
-		other.take_damage(attack);
-		std::cout << actor->get_name() << " attacks "
-			<< target->get_name() << "!\n";
-	}
+void Character::process_turn(Character& other) {
+	other.take_damage(attack);
+	std::cout << name << " (" << curr_health << " health) attacks "
+		<< other.get_name() << " (" << other.get_health() << " health) for "
+		<< attack << "!\n";
+}
 
-	int get_speed() {
-		return speed;
-	}
+int Character::get_speed() const {
+	return speed;
+}
 
-private:
-	std::string& name;
-	int attack;
-	int max_health;
-	int curr_health;
-	int speed;
-};
+int Character::get_health() const {
+	return curr_health;
+}
+
+std::string Character::get_name() {
+	return name;
+}

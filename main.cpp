@@ -1,7 +1,7 @@
-#include "combat_system.cpp";
-#include "character.cpp";
-#include "team.cpp";
-#include <iostream>;
+#include "combat_system.h"
+#include "character.h"
+#include "team.h"
+#include <iostream>
 //
 int main() {
     Character goblin1{ "Red Goblin", 17, 100, 75 };
