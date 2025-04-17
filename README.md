@@ -15,7 +15,7 @@ still very WIP
 - [ ] unit tests
 - [X] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
 
-### have this done before fall 2025 :clueless:
+## more advanced features (lock in)
 - [ ] castorice global passive
 - [ ] gui
 - [ ] save logs to file
