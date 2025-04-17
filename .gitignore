@@ -32,3 +32,9 @@
 *.app
 /.vs/TurnBasedCombatSimulator
 /TurnBase.8477da41/x64/Debug
+/.vs
+/x64/Debug
+*.sln
+*.vcxproj
+*.filters
+*.user

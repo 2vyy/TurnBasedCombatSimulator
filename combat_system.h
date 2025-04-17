@@ -6,9 +6,7 @@
 class Combat_System {
 	public:
 		Combat_System(Team&, Team&);
-
 		void start_combat();
-
 	private:
 		Team& team1;
 		Team& team2;

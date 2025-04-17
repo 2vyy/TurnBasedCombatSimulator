@@ -1,11 +1,8 @@
-#include<string>
+#include <string>
 #include <iostream>
 #include "team.h"
 #include "character.h"
 
-//Character::Character(std::string _name, int _attack, int _max_health, int _speed) : 
-	//name(_name), attack(_attack), max_health(_max_health), curr_health(_max_health), speed(_speed) {};
-	
 void Character::take_damage(int damage) {
 	curr_health -= damage;
 }
@@ -19,6 +16,10 @@ void Character::process_turn(Character& other) {
 	std::cout << name << " (" << curr_health << " health) attacks "
 		<< other.get_name() << " (" << other.get_health() << " health) for "
 		<< attack << "!\n";
+
+	if (!other.is_alive()) {
+		std::cout << other.get_name() << " has been defeated!\n";
+	}
 }
 
 int Character::get_speed() const {
@@ -29,6 +30,6 @@ int Character::get_health() const {
 	return curr_health;
 }
 
-std::string Character::get_name() {
+std::string Character::get_name() const {
 	return name;
 }

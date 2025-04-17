@@ -2,7 +2,7 @@
 #include "character.h"
 #include "team.h"
 #include <iostream>
-//
+
 int main() {
     Character goblin1{ "Red Goblin", 17, 100, 75 };
     Character goblin2{ "Blue Goblin", 26, 120, 50 };
@@ -11,9 +11,9 @@ int main() {
     goblins.add_member(goblin1);
     goblins.add_member(goblin2);
     goblins.add_member(goblin3);
-
-    Character knight1{ "Silver Knight", 28, 125, 55 };
+    
     Character knight2{ "Iron Knight", 22, 110, 65 };
+    Character knight1{ "Silver Knight", 28, 125, 55 };
     Character knight3{ "Bronze Knight", 18, 95, 80 };
     Team knights{ "Knights" };
     knights.add_member(knight1);
@@ -26,6 +26,4 @@ int main() {
     std::cout << "Ending";
 
     return 0;
-
-
 }

@@ -1,7 +1,3 @@
-#include <string>
-#include <vector>
-#include <algorithm>
-#include "character.h"
 #include "team.h"
 
 Team::Team(const std::string& _name) :
@@ -12,8 +8,12 @@ void Team::add_member(Character& character) {
 }
 
 bool Team::is_defeated() const {
-	return std::none_of(characters.begin(), characters.end(),
-		[](const Character& c) { return c.is_alive(); });
+	for (auto& c : characters) {
+		if (c.is_alive()) {
+			return false; // If any character is alive, the team is not defeated
+		}
+	}
+	return false;
 }
 
 std::vector<Character>& Team::get_characters() {
