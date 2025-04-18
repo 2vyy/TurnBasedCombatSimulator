@@ -4,7 +4,7 @@ Team::Team(const std::string& _name) :
 	name(_name) {}
 
 void Team::add_member(Character& character) {
-    characters.push_back(character);
+	characters.push_back(character);
 }
 
 bool Team::is_defeated() const {
