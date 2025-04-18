@@ -13,7 +13,7 @@ bool Team::is_defeated() const {
 			return false; // If any character is alive, the team is not defeated
 		}
 	}
-	return false;
+	return true;
 }
 
 std::vector<Character>& Team::get_characters() {
