@@ -1,21 +1,53 @@
-﻿# CMakeList.txt : CMake project for TurnBasedCombatSimulatorCMake, include source and define
-# project specific logic here.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.29)
+project(TurnBasedCombatSimulator LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Enable Hot Reload for MSVC compilers if supported.
-if (POLICY CMP0141)
-  cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
-endif()
+# combat core library with all .cpp files
+add_library(combat_core
+    src/character.cpp
+    src/combat_system.cpp
+    src/team.cpp
+)
 
-project ("TurnBasedCombatSimulatorCMake")
+# include .h files for combat_core
+target_include_directories(combat_core PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
-# Add source to this project's executable.
-add_executable (TurnBasedCombatSimulatorCMake "main.cpp" "main.h" "character.cpp" "character.h" "combat_system.h" "combat_system.cpp" "team.cpp" "team.h")
+# main executable (main.cpp)
+add_executable(${PROJECT_NAME}
+    src/main.cpp
+)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET TurnBasedCombatSimulatorCMake PROPERTY CXX_STANDARD 20)
-endif()
+# link combat_core to main executable
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    combat_core
+)
 
-# TODO: Add tests and install targets if needed.
+# catch2 library
+include(FetchContent)
+FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG        v3.8.1
+)
+FetchContent_MakeAvailable(Catch2)
+
+# tests executable
+add_executable(tests
+    tests/test_main.cpp
+    tests/test_character.cpp
+    tests/test_combat_system.cpp
+    tests/test_team.cpp
+)
+
+# link Catch2 & combat_core to tests executable
+target_link_libraries(tests PRIVATE
+    Catch2::Catch2WithMain
+    combat_core
+)
+
+include(CTest)
+enable_testing()
+add_test(NAME AllTests COMMAND tests)

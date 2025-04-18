@@ -14,8 +14,9 @@ still very WIP
 - [ ] error messages
 - [ ] unit tests
 - [X] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
+- [ ] bounded character stats & default values
 
-## more advanced features (lock in)
+### more advanced features (lock in)
 - [ ] castorice global passive
 - [ ] gui
 - [ ] save logs to file
