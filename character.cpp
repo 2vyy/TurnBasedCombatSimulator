@@ -1,6 +1,4 @@
-#include <string>
 #include <iostream>
-#include "team.h"
 #include "character.h"
 
 void Character::take_damage(int damage) {

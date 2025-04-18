@@ -3,7 +3,7 @@
 
 Combat_System::Combat_System(Team& _team1, Team& _team2) :
 	team1(_team1), team2(_team2) {
-		
+
 	// Initialize action value and character-team mappings
 	for (Character& character : team1.get_characters()) {
 		action_values[&character] = 10000.0f / character.get_speed();
@@ -69,4 +69,3 @@ Team& Combat_System::get_opposing_team(Character* character) {
 	Team* actor_team = character_to_team.at(character);
 	return (actor_team == &team1) ? team2 : team1; // i love ternary operators :3
 }
-	
