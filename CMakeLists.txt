@@ -36,7 +36,6 @@ FetchContent_MakeAvailable(Catch2)
 
 # tests executable
 add_executable(tests
-    tests/test_main.cpp
     tests/test_character.cpp
     tests/test_combat_system.cpp
     tests/test_team.cpp
