@@ -21,7 +21,17 @@ std::vector<Character>& Team::get_characters() {
 }
 
 int Team::get_size() const {
-	return characters.size();
+	return (int)characters.size();
+}
+
+int Team::get_alive_count() const {
+	int count = 0;
+	for (auto& c : characters) {
+		if (c.is_alive()) {
+			count++;
+		}
+	}
+	return count;
 }
 
 std::string& Team::get_name_ref() const {

@@ -18,7 +18,7 @@ Combat_System::Combat_System(Team& _team1, Team& _team2) :
 
 void Combat_System::start_combat() {
 	Combat_Logger::log_init(team1, team2);
-	turn_count = 1;
+	turn_count = 0;
 	total_av = 0.0f;
 
 	while (!team1.is_defeated() && !team2.is_defeated()) {
@@ -49,10 +49,11 @@ void Combat_System::start_combat() {
 		Team& opposing_team = get_opposing_team(next_actor);
 		auto& targets = opposing_team.get_characters();
 		Character* target = nullptr;
+		int lowest_health = 9999; // TODO: please use numeric limits
 		for (auto& t : targets) {
-			if (t.is_alive()) { //TODO: should optimize to get the character with the lowest health
+			if (t.is_alive() && t.get_health() < lowest_health) {
 				target = &t;
-				break;
+				lowest_health = t.get_health();
 			}
 		}
 
@@ -65,7 +66,7 @@ void Combat_System::start_combat() {
 								*target,
 								opposing_team,
 								total_av,
-								turn_count++);
+								++turn_count);
 		next_actor->process_turn(*target);
 		if (!target->is_alive()) {
 			Combat_Logger::log_death(*target, opposing_team);
@@ -75,6 +76,8 @@ void Combat_System::start_combat() {
 		// when next_actor has finished their turn, reset their action value
 		action_values[next_actor] = 10000.0f / next_actor->get_speed();
 	}
+
+	Combat_Logger::log_end(team1, team2, turn_count);
 }
 
 

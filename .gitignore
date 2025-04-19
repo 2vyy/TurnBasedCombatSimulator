@@ -39,3 +39,4 @@
 *.filters
 *.user
 /out/build/x64-debug
+/.vss

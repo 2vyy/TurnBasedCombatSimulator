@@ -24,6 +24,10 @@ std::string& Character::get_name_ref() const {
 	return const_cast<std::string&>(name);
 }
 
+int Character::get_max_health() const {
+	return max_health;
+}
+
 int Character::get_health() const {
 	return curr_health;
 }

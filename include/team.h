@@ -11,6 +11,7 @@ public:
 	bool is_defeated() const;
 	std::vector<Character>& get_characters();
 	int get_size() const;
+	int get_alive_count() const;
 	std::string& get_name_ref() const;
 private:
 	const std::string name;

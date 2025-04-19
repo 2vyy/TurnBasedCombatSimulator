@@ -9,6 +9,7 @@ public:
 	void take_damage(int);
 	bool is_alive() const;
 	std::string& get_name_ref() const;
+	int get_max_health() const;
 	int get_health() const;
 	int get_attack() const;
 	int get_speed() const;

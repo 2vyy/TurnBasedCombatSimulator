@@ -8,7 +8,7 @@ TEST_CASE("Action Value Test") {
 	Team fast_team{ "Fast Team" };
 	fast_team.add_member(fast);
 	Team slow_team{ "Slow Team" };
-	fast_team.add_member(slow);
+	slow_team.add_member(slow);
 
 	Combat_System combat_system{ fast_team, slow_team };
 	combat_system.start_combat();
