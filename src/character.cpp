@@ -6,13 +6,13 @@ Character::Character(const std::string _name, const int _max_health, const int _
 
 void Character::process_turn(Character& other) {
 	other.take_damage(attack);
-	std::cout << name << " (" << curr_health << " health) attacks "
+	/*std::cout << name << " (" << curr_health << " health) attacks "
 		<< other.get_name_ref() << " (" << other.get_health() << " health) for "
 		<< attack << "!\n";
 
 	if (!other.is_alive()) {
 		std::cout << other.get_name_ref() << " has been defeated!\n";
-	}
+	}*/
 }
 
 void Character::take_damage(int damage) {

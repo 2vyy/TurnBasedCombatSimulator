@@ -8,11 +8,10 @@ still very WIP
 - [X] comments
 - [X] use .h files properly
 
-### have any actually useful functionality and practices
+### have actually useful functionality and practices
 - [ ] more complex combat system
 - [ ] console logs
-- [ ] error messages
-- [ ] unit tests
+- [X] unit tests
 - [X] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
 - [ ] bounded character stats & default values
 

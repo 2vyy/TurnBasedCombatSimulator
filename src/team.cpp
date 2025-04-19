@@ -20,6 +20,10 @@ std::vector<Character>& Team::get_characters() {
 	return characters;
 }
 
+int Team::get_size() const {
+	return characters.size();
+}
+
 std::string& Team::get_name_ref() const {
 	return const_cast<std::string&>(name);
 }

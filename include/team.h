@@ -10,6 +10,7 @@ public:
 	void add_member(Character& character);
 	bool is_defeated() const;
 	std::vector<Character>& get_characters();
+	int get_size() const;
 	std::string& get_name_ref() const;
 private:
 	const std::string name;

@@ -21,7 +21,5 @@ int main() {
     Combat_System combat_system{ knights, goblins };
     combat_system.start_combat();
 
-    std::cout << "Ending";
-
     return 0;
 }

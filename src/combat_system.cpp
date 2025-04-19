@@ -1,5 +1,5 @@
 #include "combat_system.h"
-#include <iostream>
+#include "combat_logger.h"
 
 Combat_System::Combat_System(Team& _team1, Team& _team2) :
 	team1(_team1), team2(_team2) {
@@ -17,6 +17,8 @@ Combat_System::Combat_System(Team& _team1, Team& _team2) :
 }
 
 void Combat_System::start_combat() {
+	Combat_Logger::log_init(team1, team2);
+
 	while (!team1.is_defeated() && !team2.is_defeated()) {
 		Character* next_actor = nullptr; // next_actor is the character with the lowest action value
 		float min_av = 100000.0f; // set starting av to very high value;
@@ -56,7 +58,6 @@ void Combat_System::start_combat() {
 		// if the other team has no alive characters, break the loop
 		// TODO: is this necessary? If the next_actor is alive, then the opposing team must have at least one alive character that just went
 
-		std::cout << "Current AV: " << time << " | ";
 		next_actor->process_turn(*target);
 
 		// When next_actor has finished their turn, reset their action value
