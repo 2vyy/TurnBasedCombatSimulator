@@ -9,7 +9,7 @@ TEST_CASE("Character Creation") {
 	REQUIRE(character.get_speed() == 75);
 	REQUIRE(character.is_alive());
 }
-
+ 
 TEST_CASE("Character Health Changes") {
 	Character character("Test Character", 100, 50, 75);
 	character.take_damage(90);
