@@ -5,7 +5,7 @@ int main() {
     Character goblin1{ "Red Goblin", 100, 17, 75 };
     Character goblin2{ "Blue Goblin", 120, 26, 50 };
     Character goblin3{ "Green Goblin", 105, 21, 60 };
-    Team goblins{ "Goblin" };
+    Team goblins{ "Goblins" };
     goblins.add_member(goblin1);
     goblins.add_member(goblin2);
     goblins.add_member(goblin3);

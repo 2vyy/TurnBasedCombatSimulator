@@ -12,6 +12,8 @@ private:
 	Team& team2;
 	std::unordered_map<Character*, float> action_values;
 	std::unordered_map<Character*, Team*> character_to_team;
+	int turn_count;
+	float total_av;
 
 	Team& get_opposing_team(Character*);
 };
