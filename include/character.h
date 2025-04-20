@@ -2,18 +2,19 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include "effect.h"
+#include "effects/effect.h"
 
 class Character {
 public:
 	Character(const std::string _name, const int _max_health, const int _attack, const int _speed);
 
-	void process_turn(Character&) const;
+	void process_turn(Character&);
 
-	void take_damage(int);
+	void change_health(int);
 
 	void add_effect(Effect* effect);
 	void update_effects();
+	void clear_effects();
 
 	bool is_alive() const;
 	std::string get_name_ref() const;

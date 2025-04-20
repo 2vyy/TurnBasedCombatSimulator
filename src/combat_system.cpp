@@ -62,14 +62,15 @@ void Combat_System::start_combat() {
 		// TODO: is this necessary? If the next_actor is alive, then the opposing team must have at least one alive character that just went
 
 
-		next_actor->update_effects();
-		target->update_effects();
+		//iterate over each character and update their effects
+		for (auto& [character, av] : action_values) {
+			character->update_effects();
+		}
 
 		Combat_Logger::log_turn(*next_actor,
 								*character_to_team[next_actor],
 								*target,
 								opposing_team,
-								total_av,
 								++turn_count);
 		next_actor->process_turn(*target);
 

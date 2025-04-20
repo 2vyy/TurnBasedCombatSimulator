@@ -1,16 +1,32 @@
 #include "character.h"
-#include "poison_effect.h"
+#include "effects/poison_effect.h"
+#include "effects/regen_effect.h"
 #include "combat_logger.h"
 #include "random.h"
 
 Character::Character(const std::string _name, const int _max_health, const int _attack, const int _speed) :
 	name(_name), max_health(_max_health), curr_health(_max_health), attack(_attack), speed(_speed) {};
 
-void Character::process_turn(Character& other) const {
-	other.take_damage(attack);
+void Character::process_turn(Character& other) {
+	other.change_health(-attack);
 
+	//only temporary for testing
 	if (Random::get(0, 100) < 10 && other.is_alive()) {
-		other.add_effect(new Poision_Effect(3, 5));
+		other.add_effect(new Poison_Effect(3, -5));
+	}
+
+	if (Random::get(0, 100) < 10) {
+		add_effect(new Regen_Effect(3, 5));
+	}
+}
+
+void Character::change_health(int damage) {
+	curr_health += damage;
+	if (curr_health < 0) {
+		curr_health = 0;
+	}
+	if (!is_alive()) {
+		clear_effects();
 	}
 }
 
@@ -25,6 +41,11 @@ void Character::update_effects() {
 	while (it != effects.end()) {
 		(*it)->on_tick(*this);
 
+		if (!is_alive()) {
+			clear_effects();
+			break;
+		}
+
 		if ((*it)->is_expired()) {
 			(*it)->on_expire(*this);
 			delete* it;
@@ -36,11 +57,11 @@ void Character::update_effects() {
 	}
 }
 
-void Character::take_damage(int damage) {
-	curr_health -= damage;
-	if (curr_health < 0) {
-		curr_health = 0;
+void Character::clear_effects() {
+	for (Effect* effect : effects) {
+		delete effect;
 	}
+	effects.clear();
 }
 
 bool Character::is_alive() const {
@@ -74,9 +95,4 @@ Plans for refactor:
  - Very high level, can be applied to characters and teams
 2. Damage class dedicated to calculating damage output
  - base attack, crit chance, crit multiplier, defense, parry, etc.
-3. Characters will be defined by a simple struct and class type
-4. Action class to distinguish between attacking and healing
-5. Look into unique_ptr
-
-
 */

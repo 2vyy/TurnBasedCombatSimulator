@@ -19,7 +19,9 @@ int main() {
     knights.add_member(knight3);
 
     Combat_System combat_system{ knights, goblins };
-    combat_system.start_combat();
+	for (int i = 0; i < 1; i++) {
+        combat_system.start_combat();
+	}
 
     return 0;
 }

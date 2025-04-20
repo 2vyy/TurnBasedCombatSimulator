@@ -15,15 +15,16 @@ void Combat_Logger::log_init(Team& team1, Team& team2) { //these should probably
 }
 
 
-void Combat_Logger::log_turn(const Character& actor, const Team& actor_team, const Character& target, const Team& target_team, float av, int turn_count) {
+void Combat_Logger::log_turn(const Character& actor, const Team& actor_team, const Character& target, const Team& target_team, int turn_count) {
 	fmt::print("\n=== Turn {} ===\n"
-		"{} [{}] (AV: {:.2f})\n"
+		"{} [{}] (HP: {}/{})\n"
 		" - Attacked [{}] for {} DMG\n"
 		" - Target HP {} -> {}\n",
 		turn_count,
 		actor.get_name_ref(),
 		actor_team.get_name_ref(),
-		av,
+		actor.get_health(),
+		actor.get_max_health(),
 		target.get_name_ref(),
 		actor.get_attack(),
 		target.get_health(),
@@ -69,12 +70,15 @@ void Combat_Logger::log_effect_apply(const Character& character, const Effect& e
 	fmt::print("\n{} has been applied with {}\n", character.get_name_ref(), effect.get_name());
 }
 
-void Combat_Logger::log_effect_tick(const Character& character, const Effect& effect) {
-	fmt::print("\n{}'s {} modifies {} by {}\n",
+void Combat_Logger::log_effect_tick(const Character& character, const Effect& effect, const int old_value, const int new_value) {
+	fmt::print("\n{}'s {} modifies {} by {}\n"
+			   "{} -> {}\n",
 		character.get_name_ref(),
 		effect.get_name(),
 		effect.get_modifer(),
-		effect.get_modifer_value());
+		effect.get_modifer_value(),
+		old_value,
+		new_value);
 }
 
 void Combat_Logger::log_effect_expire(const Character& character, const Effect& effect) {

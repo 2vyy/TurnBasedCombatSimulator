@@ -1,25 +1,31 @@
 #pragma once
+#include <algorithm>
 #include "effect.h"  
 #include "character.h"  
 #include "combat_logger.h"
 
-class Poision_Effect : public Effect {  
+class Poison_Effect : public Effect {  
    public:  
-       Poision_Effect(int _duration, int _damage_per_turn)
+       Poison_Effect(int _duration, int _damage_per_turn)
            : duration(_duration), damage(_damage_per_turn) {  
-       }  
+       }
 
        void on_apply(Character& target) override {  
            Combat_Logger::log_effect_apply(target, *this);
        }  
 
-       void on_tick(Character& target) override { 
-           target.take_damage(damage);
-           Combat_Logger::log_effect_tick(target, *this);
+       void on_tick(Character& target) override {
+           Combat_Logger::log_effect_tick(
+               target,
+               *this,
+               target.get_health(),
+               std::clamp(target.get_health() + damage, 0, target.get_max_health())
+           );
+           target.change_health(damage);
            duration--;  
        }
 
-	   void on_expire(Character& target) override {
+       void on_expire(Character& target) override {
 		   Combat_Logger::log_effect_expire(target, *this);
 	   }
 
