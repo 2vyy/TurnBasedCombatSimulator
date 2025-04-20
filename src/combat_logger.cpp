@@ -65,6 +65,18 @@ void Combat_Logger::log_end(Team& team1, Team& team2, const int turn_count) {
 	}
 }
 
-void Combat_Logger::log_poison(const Character& character, const int damage) {
-	fmt::print("\n{} is poisoned and will take {} damage\n", character.get_name_ref(), damage);
+void Combat_Logger::log_effect_apply(const Character& character, const Effect& effect) {
+	fmt::print("\n{} has been applied with {}\n", character.get_name_ref(), effect.get_name());
+}
+
+void Combat_Logger::log_effect_tick(const Character& character, const Effect& effect) {
+	fmt::print("\n{}'s {} modifies {} by {}\n",
+		character.get_name_ref(),
+		effect.get_name(),
+		effect.get_modifer(),
+		effect.get_modifer_value());
+}
+
+void Combat_Logger::log_effect_expire(const Character& character, const Effect& effect) {
+	fmt::print("\n{}'s {} has expired\n", character.get_name_ref(), effect.get_name());
 }
