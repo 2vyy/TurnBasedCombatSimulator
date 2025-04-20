@@ -64,3 +64,7 @@ void Combat_Logger::log_end(Team& team1, Team& team2, const int turn_count) {
 			character.get_max_health());
 	}
 }
+
+void Combat_Logger::log_poison(const Character& character, const int damage) {
+	fmt::print("\n{} is poisoned and will take {} damage\n", character.get_name_ref(), damage);
+}

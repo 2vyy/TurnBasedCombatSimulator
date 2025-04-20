@@ -1,13 +1,15 @@
 #include "character.h"
-#include "effect.h"
+#include "poison_effect.h"
+#include "combat_logger.h"
 
 Character::Character(const std::string _name, const int _max_health, const int _attack, const int _speed) :
 	name(_name), max_health(_max_health), curr_health(_max_health), attack(_attack), speed(_speed) {};
 
-Character::~Character() = default;
-
 void Character::process_turn(Character& other) const {
 	other.take_damage(attack);
+	other.add_effect(new Poision_Effect(3, 5));
+	Combat_Logger::log_poison(other, 5);
+
 }
 
 /*incoming yap session about why this effect system has to be like this
@@ -22,24 +24,24 @@ void Character::process_turn(Character& other) const {
 * 5. thank you c++
 */
 
-void Character::add_effect(std::unique_ptr<Effect> effect) {
-	effects.push_back(std::move(effect));
-	effects.back()->on_apply(*this);
+void Character::add_effect(Effect* effect) {
+	effects.push_back(effect);
 }
 
-void Character::process_effects() {
-	//instead of being based on a for-each loop,
-	//this uses an iterator to account for elements being deleted and skipped by extension
+void Character::update_effects() {
+	// apply effects and remove expired ones
+	auto it = effects.begin();
+	while (it != effects.end()) {
+		(*it)->on_apply(*this);
 
-	auto curr_effect = effects.begin();
-	while (curr_effect != effects.end()) {
-		if ((*curr_effect)->is_expired()) {
-			(*curr_effect)->on_remove(*this);
-			curr_effect = effects.erase(curr_effect);
+		(*it)->on_tick(*this);
+
+		if ((*it)->is_expired()) {
+			delete* it;  // this is probably not the best way to do this but all good 
+			it = effects.erase(it);
 		}
 		else {
-			(*curr_effect)->on_turn_start(*this);
-			curr_effect++;
+			++it;
 		}
 	}
 }

@@ -40,3 +40,4 @@
 *.user
 /out/build/x64-debug
 /.vss
+/out/build/x64-release

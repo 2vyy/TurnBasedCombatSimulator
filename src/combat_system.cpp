@@ -61,6 +61,10 @@ void Combat_System::start_combat() {
 		// if the other team has no alive characters, break the loop
 		// TODO: is this necessary? If the next_actor is alive, then the opposing team must have at least one alive character that just went
 
+
+		next_actor->update_effects();
+		target->update_effects();
+
 		Combat_Logger::log_turn(*next_actor,
 								*character_to_team[next_actor],
 								*target,
@@ -68,6 +72,7 @@ void Combat_System::start_combat() {
 								total_av,
 								++turn_count);
 		next_actor->process_turn(*target);
+
 		if (!target->is_alive()) {
 			Combat_Logger::log_death(*target, opposing_team);
 		}

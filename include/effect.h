@@ -1,15 +1,13 @@
-#pragma once
-#include <string>
+#pragma once  
+//#include "character.h"  // Include the full definition of Character  
 
-class Character;
+class Character;  
 
-class Effect {
-    public:
-        virtual ~Effect() = default;  // Inline defaulted destructor
+class Effect {  
+   public:  
+       virtual ~Effect() = default;  // Must be virtual  
 
-        virtual void on_apply(Character& target) = 0;
-        virtual void on_turn_start(Character& target) = 0;
-        virtual void on_remove(Character& target) = 0;
-        virtual bool is_expired() const = 0;
-        virtual std::string get_name() const = 0;
+       virtual void on_apply(Character& target) = 0;  
+       virtual void on_tick(Character& target) = 0;  
+       virtual bool is_expired() const = 0;  
 };
