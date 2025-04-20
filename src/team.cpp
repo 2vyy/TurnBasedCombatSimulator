@@ -34,6 +34,6 @@ int Team::get_alive_count() const {
 	return count;
 }
 
-std::string& Team::get_name_ref() const {
+std::string Team::get_name_ref() const {
 	return const_cast<std::string&>(name);
 }

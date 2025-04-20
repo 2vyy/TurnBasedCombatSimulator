@@ -10,7 +10,7 @@ This project is intended to implement a traditional action-value algorithm used 
 
 ### have actually useful functionality and practices
 - [ ] more complex combat system
-- [ ] console logs
+- [X] console logs
 - [X] unit tests
 - [X] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
 - [ ] bounded character stats & default values

@@ -2,7 +2,7 @@
 #include "combat_logger.h"
 
 Combat_System::Combat_System(Team& _team1, Team& _team2) :
-	team1(_team1), team2(_team2) {
+	team1(_team1), team2(_team2), total_av(0), turn_count(0) {
 
 	// Initialize action value and character-team mappings
 	for (Character& character : team1.get_characters()) {

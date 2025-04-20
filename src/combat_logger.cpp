@@ -54,6 +54,7 @@ void Combat_Logger::log_end(Team& team1, Team& team2, const int turn_count) {
 			character.get_max_health());
 	}
 
+	// is it really necessary to print the losing team?
 	fmt::print("Team [{}]:\n",
 		losing_team.get_name_ref());
 
