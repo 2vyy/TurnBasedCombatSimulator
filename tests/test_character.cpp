@@ -12,16 +12,16 @@ TEST_CASE("Character Creation") {
 
 TEST_CASE("Character Health Changes") {
 	Character character("Test Character", 100, 50, 75);
-	character.take_damage(90);
+	character.change_health(-90);
 
 	REQUIRE(character.get_health() == 10);
 	REQUIRE(character.is_alive());
 
-	character.take_damage(15);
+	character.change_health(-15);
 	REQUIRE(character.get_health() == 0);
 	REQUIRE_FALSE(character.is_alive());
 
-	character.take_damage(10); // shouldnt go below 0
+	character.change_health(-10); // shouldnt go below 0
 	REQUIRE(character.get_health() == 0);
 	REQUIRE_FALSE(character.is_alive());
 }

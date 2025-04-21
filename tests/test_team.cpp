@@ -16,11 +16,11 @@ TEST_CASE("Team Creation") {
 
 	REQUIRE_FALSE(team.is_defeated());
 
-	team.get_characters()[0].take_damage(9999);
+	team.get_characters()[0].change_health(-9999);
 
 	REQUIRE_FALSE(team.is_defeated());
 
-	team.get_characters()[1].take_damage(9999);
+	team.get_characters()[1].change_health(-9999);
 
 	REQUIRE(team.is_defeated());
 }

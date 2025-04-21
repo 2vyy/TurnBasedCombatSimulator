@@ -64,7 +64,7 @@ add_executable(tests
     tests/test_character.cpp
     tests/test_combat_system.cpp
     tests/test_team.cpp
- "tests/test_poison_effect.cpp")
+    tests/test_effect.cpp)
 
 # link Catch2 & combat_core to tests executable
 target_link_libraries(tests PRIVATE
