@@ -11,7 +11,7 @@ This project is intended to implement a traditional action-value algorithm used 
 
 ### have actually useful functionality and practices
 - [ ] more complex combat system
-	- [ ] effects
+	- [X] effects
 	- [ ] damage calculator
 	- [ ] armor system
 - [X] console logs
