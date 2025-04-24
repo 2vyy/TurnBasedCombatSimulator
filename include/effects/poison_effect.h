@@ -1,14 +1,13 @@
 #pragma once
 #include <algorithm>
+#include "constants.h"
 #include "effect.h"  
 #include "character.h"  
 #include "combat_logger.h"
 
 class Poison_Effect : public Effect {  
    public:  
-       Poison_Effect(int _duration, int _damage_per_turn)
-           : duration(_duration), damage(_damage_per_turn) {  
-       }
+       Poison_Effect() {};
 
        void on_apply(Character& target) override {  
            Combat_Logger::log_effect_apply(target, *this);
@@ -46,8 +45,8 @@ class Poison_Effect : public Effect {
        }
 
    private:  
-       int duration;  
-       int damage;  
-	   std::string name = "Poison";
-       std::string modifer = "health";
+       int duration = Constants::POISON_DURATION; 
+       int damage = Constants::POISON_DAMAGE;
+	   std::string name = Constants::POISON_NAME;
+       std::string modifer = Constants::POISON_MODIFIER;
 };

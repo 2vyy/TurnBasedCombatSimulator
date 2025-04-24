@@ -6,9 +6,7 @@
 
 class Regen_Effect : public Effect {
 public:
-    Regen_Effect(int _duration, int _health_gain)
-        : duration(_duration), health_gain(_health_gain) {
-    }
+    Regen_Effect() {}
 
     void on_apply(Character& target) override {
         Combat_Logger::log_effect_apply(target, *this);
@@ -48,8 +46,8 @@ public:
     }
 
 private:
-    int duration;
-    int health_gain;
-    std::string name = "Regeneration";
-    std::string modifer = "health";
+    int duration = Constants::REGEN_DURATION;
+    int health_gain = Constants::REGEN_DAMAGE;
+    std::string name = Constants::REGEN_NAME;
+    std::string modifer = Constants::REGEN_MODIFIER;
 };

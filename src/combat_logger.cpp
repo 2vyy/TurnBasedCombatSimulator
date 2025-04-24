@@ -70,6 +70,8 @@ void Combat_Logger::log_effect_apply(const Character& character, const Effect& e
 	fmt::print("\n{} has been applied with {}\n", character.get_name_ref(), effect.get_name());
 }
 
+
+// TODO: need to rework to be more generic (probably need to store text in the effect itself tbh)
 void Combat_Logger::log_effect_tick(const Character& character, const Effect& effect, const int old_value, const int new_value) {
 	fmt::print("\n{}'s {} modifies {} by {}\n"
 			   "{} -> {}\n",
