@@ -6,7 +6,18 @@
 
 class Character {
 public:
-	Character(const std::string _name, const int _max_health, const int _attack, const int _speed);
+	struct CharacterStats {
+		int max_health;
+		int curr_health;
+		int attack;
+		int speed;
+		int armor;
+		double armor_percent;
+		double crit_chance;
+		double crit_multiplier;
+	};
+
+	Character(const std::string _name, const CharacterStats _stats);
 
 	void process_turn(Character&);
 
@@ -18,16 +29,10 @@ public:
 
 	bool is_alive() const;
 	std::string get_name_ref() const;
-	int get_max_health() const;
-	int get_health() const;
-	int get_attack() const;
-	int get_speed() const;
+	CharacterStats get_stats() const;
 private:
 	const std::string name;
 	std::vector<Effect*> effects;
-	const int max_health;
-	int curr_health;
-	const int attack;
-	const int speed;
+	CharacterStats stats;
 };
 

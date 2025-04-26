@@ -37,7 +37,7 @@ add_library(combat_core
     src/combat_system.cpp
     src/team.cpp
     src/combat_logger.cpp
-     "src/damage.cpp")
+    src/damage_system.cpp)
 
 # include .h files for combat_core
 target_include_directories(combat_core PUBLIC

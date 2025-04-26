@@ -1,14 +1,13 @@
 #include "character.h"
-#include "effects/poison_effect.h"
+#include "effects/poison_effect.h" // TODO: make a master effects header
 #include "effects/regen_effect.h"
 #include "combat_logger.h"
 #include "random.h"
 
-Character::Character(const std::string _name, const int _max_health, const int _attack, const int _speed) :
-	name(_name), max_health(_max_health), curr_health(_max_health), attack(_attack), speed(_speed) {};
+Character::Character(const std::string _name, const CharacterStats _stats) : name(_name), stats(_stats) {}
 
 void Character::process_turn(Character& other) {
-	other.change_health(-attack);
+	other.change_health(-stats.attack); //TODO: will be gutted for damage system
 
 	//only temporary for testing
 	if (Random::get(0, 100) < 10 && other.is_alive()) {
@@ -21,9 +20,9 @@ void Character::process_turn(Character& other) {
 }
 
 void Character::change_health(int damage) {
-	curr_health += damage;
-	if (curr_health < 0) {
-		curr_health = 0;
+	stats.curr_health += damage;
+	if (stats.curr_health < 0) {
+		stats.curr_health = 0;
 	}
 	if (!is_alive()) {
 		clear_effects();
@@ -65,28 +64,17 @@ void Character::clear_effects() {
 }
 
 bool Character::is_alive() const {
-	return curr_health > 0;
+	return stats.curr_health > 0;
 }
 
 std::string Character::get_name_ref() const {
 	return const_cast<std::string&>(name);
 }
 
-int Character::get_max_health() const {
-	return max_health;
+Character::CharacterStats Character::get_stats() const {
+	return stats;
 }
 
-int Character::get_health() const {
-	return curr_health;
-}
-
-int Character::get_attack() const {
-	return attack;
-}
-
-int Character::get_speed() const {
-	return speed;
-}
 //
 /*
 Plans for refactor:

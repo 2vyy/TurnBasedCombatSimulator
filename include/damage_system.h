@@ -28,5 +28,5 @@ namespace DamageSystem {
 	};
 
 	//TODO: please standardize the naming scheme
-	DamageResult calculate_damage(const Character& attacker, const Character& defender, const DamageSettings& settings);
+	DamageResult calculate_damage(const Character& attacker, const Character& defender, const DamageSettings& settings);)
 }
