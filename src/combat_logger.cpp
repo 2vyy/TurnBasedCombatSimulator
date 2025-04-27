@@ -5,30 +5,36 @@ void Combat_Logger::log_init(Team& team1, Team& team2) { //these should probably
 	fmt::print("=== Combat Initialized ===\n"
 	"Team [{}] ({} members)\n", team1.get_name_ref(), team1.get_size());
 	for (auto& character : team1.get_characters()) {
-		fmt::print(" - {} ({} HP, {} ATK, {} SPD)\n", character.get_name_ref(), character.get_health(), character.get_attack(), character.get_speed());
+		Character::CharacterStats stats = character.get_stats();
+		fmt::print(" - {} ({} HP, {} ATK, {} SPD)\n", character.get_name_ref(), stats.max_health, stats.attack, stats.speed);
 	}
 
 	fmt::print("\nTeam [{}] ({} members)\n", team2.get_name_ref(), team2.get_size());
 	for (auto& character : team2.get_characters()) {
-		fmt::print(" - {} ({} HP, {} ATK, {} SPD)\n", character.get_name_ref(), character.get_health(), character.get_attack(), character.get_speed());
+		Character::CharacterStats stats = character.get_stats();
+		fmt::print(" - {} ({} HP, {} ATK, {} SPD)\n", character.get_name_ref(), stats.max_health, stats.attack, stats.speed);
 	}
 }
 
 
-void Combat_Logger::log_turn(const Character& actor, const Team& actor_team, const Character& target, const Team& target_team, int turn_count) {
+// TODO: will need to be reworked to include damage system
+void Combat_Logger::log_turn(const Character& attacker, const Team& actor_team, const Character& defender, const Team& target_team, int turn_count) {
+	Character::CharacterStats attacker_stats = attacker.get_stats();
+	Character::CharacterStats defender_stats = defender.get_stats();
+
 	fmt::print("\n=== Turn {} ===\n"
 		"{} [{}] (HP: {}/{})\n"
 		" - Attacked [{}] for {} DMG\n"
 		" - Target HP {} -> {}\n",
 		turn_count,
-		actor.get_name_ref(),
+		attacker.get_name_ref(),
 		actor_team.get_name_ref(),
-		actor.get_health(),
-		actor.get_max_health(),
-		target.get_name_ref(),
-		actor.get_attack(),
-		target.get_health(),
-		std::max(target.get_health() - actor.get_attack(), 0));
+		attacker_stats.curr_health,
+		attacker_stats.max_health,
+		defender.get_name_ref(),
+		attacker_stats.attack,
+		defender_stats.curr_health,
+		std::max(defender_stats.curr_health - attacker_stats.attack, 0));
 }
 
 void Combat_Logger::log_death(const Character& character, const Team& character_team) {
@@ -49,10 +55,12 @@ void Combat_Logger::log_end(Team& team1, Team& team2, const int turn_count) {
 		winning_team.get_name_ref());
 
 	for (auto& character : winning_team.get_characters()) {
+		Character::CharacterStats stats = character.get_stats();
+
 		fmt::print(" - {}: {}/{} HP\n",
 			character.get_name_ref(), 
-			character.get_health(),
-			character.get_max_health());
+			stats.curr_health,
+			stats.max_health);
 	}
 
 	// is it really necessary to print the losing team?
@@ -60,9 +68,11 @@ void Combat_Logger::log_end(Team& team1, Team& team2, const int turn_count) {
 		losing_team.get_name_ref());
 
 	for (auto& character : losing_team.get_characters()) {
+		Character::CharacterStats stats = character.get_stats();
+
 		fmt::print(" - {}: 0/{} HP\n",
 			character.get_name_ref(),
-			character.get_max_health());
+			stats.max_health);
 	}
 }
 
