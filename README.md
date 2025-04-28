@@ -28,3 +28,14 @@ This project is intended to implement a traditional action-value algorithm used 
 - [ ] save logs to file
 - [ ] pseudo-api for character functionality w/ documentation
 - [ ] write a devblog about this
+
+#### running todo list 
+- implement constants file
+- decide on putting names or not in constants file
+- move effect log messages to their own function implementations
+- fix redundancy in defining curr_health and max_health
+- make master effects header
+- standardize naming scheme
+- use numerical limits
+- update unit tests to use new damage systems
+- implement armor and on-hit effects

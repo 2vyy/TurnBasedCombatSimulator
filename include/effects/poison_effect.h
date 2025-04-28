@@ -14,11 +14,12 @@ class Poison_Effect : public Effect {
        }  
 
        void on_tick(Character& target) override {
+		   Character::CharacterStats stats = target.get_stats();
            Combat_Logger::log_effect_tick(
                target,
                *this,
-               target.get_health(),
-               std::clamp(target.get_health() + damage, 0, target.get_max_health())
+               stats.curr_health,
+               std::clamp(stats.curr_health + damage, 0, stats.max_health)
            );
            target.change_health(damage);
            duration--;  

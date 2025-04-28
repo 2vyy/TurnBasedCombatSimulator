@@ -11,15 +11,16 @@ public:
     void on_apply(Character& target) override {
         Combat_Logger::log_effect_apply(target, *this);
     }
-
+    
     void on_tick(Character& target) override {
+        Character::CharacterStats stats = target.get_stats();
         Combat_Logger::log_effect_tick(
             target,
             *this,
-            target.get_health(),
-			std::clamp(target.get_health() + health_gain, 0, target.get_max_health())
+            stats.curr_health,
+			std::clamp(stats.curr_health + health_gain, 0, stats.curr_health)
         );
-        if(target.get_health() + health_gain <= target.get_max_health()) {
+        if(stats.curr_health + health_gain <= stats.max_health) {
 			target.change_health(health_gain);
 		}
         duration--;
