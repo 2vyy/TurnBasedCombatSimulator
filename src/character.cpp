@@ -4,6 +4,7 @@
 #include "combat_logger.h"
 #include "random.h"
 
+// TODO: its weird to define max health and current health in the same struct
 Character::Character(const std::string _name, const CharacterStats _stats) : name(_name), stats(_stats) {}
 
 void Character::process_turn(Character& other) {

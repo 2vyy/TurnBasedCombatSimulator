@@ -2,7 +2,12 @@
 #include <iostream>
 
 int main() {
-    Character goblin1{ "Red Goblin", 100, 17, 75 };
+    Character goblin1{
+        "Red Goblin",
+		{110, 110, 17, 75, 7, 0.05, 0.20, 1.50} // TODO: if we upgrade to c++20, we can use designated initializers
+    };
+
+
     Character goblin2{ "Blue Goblin", 120, 26, 50 };
     Character goblin3{ "Green Goblin", 105, 21, 60 };
     Team goblins{ "Goblins" };

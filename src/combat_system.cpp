@@ -6,12 +6,14 @@ Combat_System::Combat_System(Team& _team1, Team& _team2) :
 
 	// Initialize action value and character-team mappings
 	for (Character& character : team1.get_characters()) {
-		action_values[&character] = 10000.0f / character.get_speed();
+		Character::CharacterStats stats = character.get_stats();
+		action_values[&character] = 10000.0f / stats.speed;
 		character_to_team[&character] = &team1;
 	}
 
 	for (Character& character : team2.get_characters()) {
-		action_values[&character] = 10000.0f / character.get_speed();
+		Character::CharacterStats stats = character.get_stats();
+		action_values[&character] = 10000.0f / stats.speed;
 		character_to_team[&character] = &team2;
 	}
 }
@@ -51,9 +53,10 @@ void Combat_System::start_combat() {
 		Character* target = nullptr;
 		int lowest_health = 9999; // TODO: please use numeric limits
 		for (auto& t : targets) {
-			if (t.is_alive() && t.get_health() < lowest_health) {
+			Character::CharacterStats stats = t.get_stats();
+			if (t.is_alive() && stats.curr_health < lowest_health) {
 				target = &t;
-				lowest_health = t.get_health();
+				lowest_health = stats.curr_health;
 			}
 		}
 
@@ -80,7 +83,7 @@ void Combat_System::start_combat() {
 
 
 		// when next_actor has finished their turn, reset their action value
-		action_values[next_actor] = 10000.0f / next_actor->get_speed();
+		action_values[next_actor] = 10000.0f / next_actor->get_stats().speed;
 	}
 
 	Combat_Logger::log_end(team1, team2, turn_count);

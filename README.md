@@ -9,18 +9,22 @@ This project is intended to implement a traditional action-value algorithm used 
 - [X] comments
 - [X] use .h files properly
 
-### have actually useful functionality and practices
+### have actually useful functionality and good practices
 - [ ] more complex combat system
 	- [X] effects
 	- [ ] damage calculator
 	- [ ] armor system
+	- [ ] stat balance system
 - [X] console logs
 - [X] unit tests
 - [X] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
 - [ ] bounded character stats & default values
 
 ### more advanced features (lock in)
+- [ ] start using pull requests for individual features
 - [ ] castorice global passive
-- [ ] gui
+- [ ] rpg class system
+- [ ] playable interface
 - [ ] save logs to file
-- [ ] pseudo-api for character functionality
+- [ ] pseudo-api for character functionality w/ documentation
+- [ ] write a devblog about this
