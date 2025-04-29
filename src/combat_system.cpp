@@ -75,7 +75,25 @@ void Combat_System::start_combat() {
 								*target,
 								opposing_team,
 								++turn_count);
-		next_actor->process_turn(*target);
+
+		CombatEventContext context{
+			next_actor,
+			target,
+			min_av
+		};
+
+		notify_effects(CombatEventType::turn_start, context);
+		if (context.cancel) {
+			action_values[next_actor] = 10000.0f / next_actor->get_stats().speed;
+			Combat_Logger::log_cancel(*next_actor, *target);
+			continue; //skip
+		}
+
+		notify_effects(CombatEventType::before_attack, context);
+		resolve_attack(context, next_actor, target);
+		notify_effects(CombatEventType::after_attack, context);
+
+		notify_effects(CombatEventType::turn_end, context);
 
 		if (!target->is_alive()) {
 			Combat_Logger::log_death(*target, opposing_team);
@@ -93,4 +111,44 @@ void Combat_System::start_combat() {
 Team& Combat_System::get_opposing_team(Character* character) {
 	Team* actor_team = character_to_team.at(character);
 	return (actor_team == &team1) ? team2 : team1; // i love ternary operators :3
+}
+
+// current todo list
+// add get_effects
+// conver poison and regen effects to use the new system
+// add resolve_attack
+
+void notify_effects(CombatEventType type, CombatEventContext& ctx) {
+	for (Effect* effect : ctx.attacker->get_effects()) {
+		for (CombatEventType trigger : effect->get_triggers()) {
+			if (trigger == type) {
+				switch (type) {
+				case CombatEventType::turn_start:
+					effect->on_turn_start(*ctx.attacker);
+					break;
+				case CombatEventType::turn_end:
+					effect->on_turn_end(*ctx.attacker);
+					break;
+				case CombatEventType::before_attack:
+					effect->on_before_attack(*ctx.attacker);
+					break;
+				case CombatEventType::after_attack:
+					effect->on_after_attack(*ctx.attacker);
+					break;
+				case CombatEventType::on_death:
+					effect->on_death(*ctx.attacker);
+					break;
+				case CombatEventType::on_revive:
+					effect->on_revive(*ctx.attacker);
+					break;
+				case CombatEventType::effect_apply:
+					effect->on_effect_apply(*ctx.attacker);
+					break;
+				case CombatEventType::effect_expire:
+					effect->on_effect_expire(*ctx.attacker);
+					break;
+				}
+			}
+		}
+	}
 }

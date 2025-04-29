@@ -10,14 +10,14 @@ Character::Character(const std::string _name, const CharacterStats _stats) : nam
 void Character::process_turn(Character& other) {
 	other.change_health(-stats.attack); //TODO: will be gutted for damage system
 
-	//only temporary for testing
-	if (Random::get(0, 100) < 10 && other.is_alive()) {
-		other.add_effect(new Poison_Effect());
-	}
+	////only temporary for testing
+	//if (Random::get(0, 100) < 10 && other.is_alive()) {
+	//	other.add_effect(new Poison_Effect());
+	//}
 
-	if (Random::get(0, 100) < 10) {
-		add_effect(new Regen_Effect());
-	}
+	//if (Random::get(0, 100) < 10) {
+	//	add_effect(new Regen_Effect());
+	//}
 }
 
 void Character::change_health(int damage) {

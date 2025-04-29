@@ -7,7 +7,15 @@
 
 class Poison_Effect : public Effect {  
    public:  
-       Poison_Effect() {};
+       Poison_Effect(int damage_per_turn, int duration) : 
+		   damage_per_turn(damage_per_turn) {
+		   this->duration = duration;
+		   this->name = "Poison";
+	   }
+
+	   EffectType get_type() const override {
+		   return EffectType::onHit;
+	   }
 
        void on_apply(Character& target) override {  
            Combat_Logger::log_effect_apply(target, *this);
@@ -29,25 +37,6 @@ class Poison_Effect : public Effect {
 		   Combat_Logger::log_effect_expire(target, *this);
 	   }
 
-       bool is_expired() const override {  
-           return duration <= 0;  
-       }  
-
-       std::string_view get_name() const override {
-           return name;
-       }
-
-	   std::string_view get_modifer() const override {
-		   return modifer;
-	   }
-
-       int get_modifer_value() const override {
-           return damage;
-       }
-
-   private:  
-       int duration = Constants::POISON_DURATION; 
-       int damage = Constants::POISON_DAMAGE;
-	   std::string name = Constants::POISON_NAME;
-       std::string modifer = Constants::POISON_MODIFIER;
+   private:
+       int damage_per_turn;
 };
