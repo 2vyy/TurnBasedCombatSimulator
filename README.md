@@ -18,24 +18,27 @@ This project is intended to implement a traditional action-value algorithm used 
 - [X] console logs
 - [X] unit tests
 - [X] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
+- [ ] implement entity-component-system
 - [ ] bounded character stats & default values
+- [ ] use constants
+- [ ] normalize naming scheme
+
+### sanity check
+- [ ] start using pull requests for individual features
+- [ ] create markdown flow diagram w/ mermaid
+- [ ] save logs to file
+- [ ] documentation
 
 ### more advanced features (lock in)
-- [ ] start using pull requests for individual features
 - [ ] castorice global passive
 - [ ] rpg class system
 - [ ] playable interface
-- [ ] save logs to file
-- [ ] pseudo-api for character functionality w/ documentation
+- [ ] pseudo-api for character functionality
 - [ ] write a devblog about this
 
-#### running todo list 
-- implement constants file
-- decide on putting names or not in constants file
+#### running todo list
 - move effect log messages to their own function implementations
 - fix redundancy in defining curr_health and max_health
 - make master effects header
-- standardize naming scheme
-- use numerical limits
 - update unit tests to use new damage systems
 - implement armor and on-hit effects
