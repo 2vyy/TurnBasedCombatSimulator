@@ -1,5 +1,6 @@
 #include "combat_system.h"
 #include "combat_logger.h"
+#include "damage_system.h"
 
 Combat_System::Combat_System(Team& _team1, Team& _team2) :
 	team1(_team1), team2(_team2), total_av(0), turn_count(0) {
@@ -64,12 +65,6 @@ void Combat_System::start_combat() {
 		// if the other team has no alive characters, break the loop
 		// TODO: is this necessary? If the next_actor is alive, then the opposing team must have at least one alive character that just went
 
-
-		//iterate over each character and update their effects
-		for (auto& [character, av] : action_values) {
-			character->update_effects();
-		}
-
 		Combat_Logger::log_turn(*next_actor,
 								*character_to_team[next_actor],
 								*target,
@@ -85,7 +80,7 @@ void Combat_System::start_combat() {
 		notify_effects(CombatEventType::turn_start, context);
 		if (context.cancel) {
 			action_values[next_actor] = 10000.0f / next_actor->get_stats().speed;
-			Combat_Logger::log_cancel(*next_actor, *target);
+			Combat_Logger::log_cancel(*next_actor);
 			continue; //skip
 		}
 
@@ -113,42 +108,48 @@ Team& Combat_System::get_opposing_team(Character* character) {
 	return (actor_team == &team1) ? team2 : team1; // i love ternary operators :3
 }
 
-// current todo list
-// add get_effects
-// conver poison and regen effects to use the new system
-// add resolve_attack
-
 void notify_effects(CombatEventType type, CombatEventContext& ctx) {
 	for (Effect* effect : ctx.attacker->get_effects()) {
 		for (CombatEventType trigger : effect->get_triggers()) {
 			if (trigger == type) {
 				switch (type) {
-				case CombatEventType::turn_start:
-					effect->on_turn_start(*ctx.attacker);
-					break;
-				case CombatEventType::turn_end:
-					effect->on_turn_end(*ctx.attacker);
-					break;
-				case CombatEventType::before_attack:
-					effect->on_before_attack(*ctx.attacker);
-					break;
-				case CombatEventType::after_attack:
-					effect->on_after_attack(*ctx.attacker);
-					break;
-				case CombatEventType::on_death:
-					effect->on_death(*ctx.attacker);
-					break;
-				case CombatEventType::on_revive:
-					effect->on_revive(*ctx.attacker);
-					break;
-				case CombatEventType::effect_apply:
-					effect->on_effect_apply(*ctx.attacker);
-					break;
-				case CombatEventType::effect_expire:
-					effect->on_effect_expire(*ctx.attacker);
-					break;
-				}
+					case CombatEventType::turn_start:
+						effect->on_turn_start(*ctx.attacker);
+						break;
+					case CombatEventType::turn_end:
+						effect->on_turn_end(*ctx.attacker);
+						break;
+					case CombatEventType::before_attack:
+						effect->on_before_attack(*ctx.attacker);
+						break;
+					case CombatEventType::after_attack:
+						effect->on_after_attack(*ctx.attacker);
+						break;
+					case CombatEventType::on_death:
+						effect->on_death(*ctx.attacker);
+						break;
+					case CombatEventType::on_revive:
+						effect->on_revive(*ctx.attacker);
+						break;
+					case CombatEventType::effect_apply:
+						effect->on_effect_apply(*ctx.attacker);
+						break;
+					case CombatEventType::effect_expire:
+						effect->on_effect_expire(*ctx.attacker);
+						break;
+					}
 			}
 		}
 	}
 }
+
+void Combat_System::resolve_attack(CombatEventContext& context) {
+	DamageSystem::DamageResult result = DamageSystem::calculate_damage(*context.attacker, *context.defender);
+	Combat_Logger::log_attack(context,
+		*character_to_team[context.attacker],
+		result
+	);
+	if (!result.is_blocked && !result.is_dodged) {
+		context.defender->change_health(-result.final_damage);
+	}
+};

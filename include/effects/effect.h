@@ -35,5 +35,5 @@ class Effect {
        virtual void on_effect_expire(Character& target) = 0;
 
        int duration;
-       std::string name;
+       const std::string name;
 };

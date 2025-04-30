@@ -24,8 +24,8 @@ public:
 	void change_health(int);
 
 	void add_effect(Effect* effect);
-	void update_effects();
 	void clear_effects();
+	std::vector<Effect*> get_effects() const;
 
 	bool is_alive() const;
 	std::string get_name_ref() const;

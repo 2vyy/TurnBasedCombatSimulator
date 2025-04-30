@@ -17,6 +17,6 @@ class Combat_System {
 
 		Team& get_opposing_team(Character*);
 		void process_turn(Character*, Character*);
-		void resolve_attack(CombatEventContext&, Character*, Character*);
+		void resolve_attack(CombatEventContext& context);
 		void notify_effects(CombatEventType type, CombatEventContext& context);
 };

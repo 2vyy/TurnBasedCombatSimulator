@@ -32,29 +32,7 @@ void Character::change_health(int damage) {
 
 void Character::add_effect(Effect* effect) {
 	effects.push_back(effect);
-	effects.back()->on_apply(*this);
-}
-
-void Character::update_effects() {
-	// apply effects and remove expired ones
-	auto it = effects.begin();
-	while (it != effects.end()) {
-		(*it)->on_tick(*this);
-
-		if (!is_alive()) {
-			clear_effects();
-			break;
-		}
-
-		if ((*it)->is_expired()) {
-			(*it)->on_expire(*this);
-			delete* it;
-			it = effects.erase(it);
-		}
-		else {
-			++it;
-		}
-	}
+	effects.back()->on_effect_apply(*this);
 }
 
 void Character::clear_effects() {
@@ -74,6 +52,10 @@ std::string Character::get_name_ref() const {
 
 Character::CharacterStats Character::get_stats() const {
 	return stats;
+}
+
+std::vector<Effect*> Character::get_effects() const {
+	return effects;
 }
 
 //
