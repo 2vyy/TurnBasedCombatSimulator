@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include "effects/effect.h"
+#include "effect.h"
 
 class Character {
 public:
@@ -29,10 +29,11 @@ public:
 
 	bool is_alive() const;
 	std::string get_name_ref() const;
-	CharacterStats get_stats() const;
+	CharacterStats& get_stats_ref();
+
 private:
+	CharacterStats stats;
 	const std::string name;
 	std::vector<Effect*> effects;
-	CharacterStats stats;
 };
 

@@ -1,6 +1,5 @@
 #pragma once
 #include <algorithm>
-#include "constants.h"
 #include "effect.h"  
 #include "character.h"  
 #include "combat_logger.h"

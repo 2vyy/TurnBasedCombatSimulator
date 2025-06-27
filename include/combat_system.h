@@ -1,7 +1,18 @@
 #pragma once
 
 #include "team.h"
+#include "effect.h"
 #include <unordered_map>
+
+struct CombatEventContext {
+	Character& attacker;
+	Character& defender;
+	Team& attacker_team;
+	Team& defender_team;
+	int turn_count;
+	float action_value;
+	bool cancel = false;
+};
 
 class Combat_System {
 	public:

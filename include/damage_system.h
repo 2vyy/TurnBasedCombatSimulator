@@ -1,22 +1,20 @@
 #pragma once
 #include "character.h"
 
-namespace DamageSystem {
 
+namespace DamageSystem {
 	//this is the outgoing struct for any instance of damage, mainly for logging purposes
 	struct DamageResult {
 		int base_damage;
 		int outgoing_damage;
 		int final_damage;
 
-		bool is_crit;
-		bool is_blocked;
-		bool is_dodged;
+		bool is_crit = false;
 
-		float crit_multiplier;
+		float crit_multiplier = 1;
 
-		int flat_armor_reduction;
-		float armor_reduction_multiplier;
+		int flat_armor_reduction = 0;
+		float armor_reduction_multiplier = 0;
 
 		std::vector<std::string> effect_messages;
 	};
@@ -28,5 +26,5 @@ namespace DamageSystem {
 	};
 
 	//TODO: please standardize the naming scheme
-	DamageResult calculate_damage(const Character& attacker, const Character& defender);
+	DamageResult calculate_damage(Character& attacker, Character& defender);
 }

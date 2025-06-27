@@ -1,6 +1,4 @@
 #include "character.h"
-#include "effects/poison_effect.h" // TODO: make a master effects header
-#include "effects/regen_effect.h"
 #include "combat_logger.h"
 #include "random.h"
 
@@ -50,12 +48,12 @@ std::string Character::get_name_ref() const {
 	return const_cast<std::string&>(name);
 }
 
-Character::CharacterStats Character::get_stats() const {
-	return stats;
-}
-
 std::vector<Effect*> Character::get_effects() const {
 	return effects;
+}
+
+Character::CharacterStats& Character::get_stats_ref() {
+	return stats;
 }
 
 //
