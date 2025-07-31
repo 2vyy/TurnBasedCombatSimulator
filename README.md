@@ -12,29 +12,16 @@ This project is intended to implement a traditional action-value algorithm used 
 ### have actually useful functionality and good practices
 - [ ] more complex combat system
 	- [X] effects
-	- [ ] damage calculator
+	- [X] damage calculator
 	- [ ] armor system
 	- [ ] stat balance system
 - [X] console logs
 - [X] unit tests
 - [X] refactor to actually make use of c++ (iterators, lambdas, references, etc.)
-- [ ] implement entity-component-system
+- [X] implement entity-component-system
 - [ ] bounded character stats & default values
 - [ ] use constants
 - [ ] normalize naming scheme
-
-### sanity check
-- [ ] start using pull requests for individual features
-- [ ] create markdown flow diagram w/ mermaid
-- [ ] save logs to file
-- [ ] documentation
-
-### more advanced features (lock in)
-- [ ] castorice global passive
-- [ ] rpg class system
-- [ ] playable interface
-- [ ] pseudo-api for character functionality
-- [ ] write a devblog about this
 
 #### running todo list
 - move effect log messages to their own function implementations
