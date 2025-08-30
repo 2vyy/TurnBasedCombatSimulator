@@ -29,7 +29,3 @@ This project is intended to implement a traditional action-value algorithm used 
 - make master effects header
 - update unit tests to use new damage systems
 - implement armor and on-hit effects
-
-(i lowkey lost interest in this. at least it was a trial by fire in system design. first real c++ project though !!! 🔥🔥🔥)
- 
-<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/dc865ec6-2802-4a7d-a105-66172b2636be" />
